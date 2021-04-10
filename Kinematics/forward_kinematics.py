@@ -125,6 +125,14 @@ T_12 = exp_c.matrix_exponential_transform(theta_2, ang_vel_2, lin_vel_2)
 T_23 = exp_c.matrix_exponential_transform(theta_3, ang_vel_3, lin_vel_3)
 T_34 = exp_c.matrix_exponential_transform(theta_4, ang_vel_4, lin_vel_4)
 
-# Overall kinematics
+
+# Overall kinematics -- Calculates the transformation matrix that gives the position and orientation
+#   of the end effector
 T_main = multi_dot([T_01, T_12, T_23, T_34, M])
 
+print('---')
+print('Transformation matrix for the end-effector')
+print('The nine elements in the upper left describe the orientation of the end-effector relative to the space or 0 frame')
+print('The three elements in the upper right describe the position vector of the end-effector relative to the space or 0 frame')
+print('Bottom row of elements are placer values to make the matrix math work properly')
+print(T_main)

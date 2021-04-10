@@ -27,10 +27,10 @@ theta_4 = angle_position[3][0]
 
 # Array of joint velocities -- in the future this will be calling joint velocities from another file
 angle_velocity = np.array([
-    [np.pi/2.0],
-    [np.pi/4.0],
-    [np.pi/2.0],
-    [np.pi/4.0]
+    [1.0],
+    [1.0],
+    [1.0],
+    [1.0]
 ])
 
 theta_vel_1 = angle_velocity[0][0]
@@ -125,8 +125,6 @@ jacb_s = np.column_stack((jacb_s, jacb_s_3))
 jacb_s = np.column_stack((jacb_s, jacb_s_4))
 
 
-print(jacb_s)
-
 '''
  structure twist = jacobian * theta_dot
  An object's twist is the concatenated angular and linear velocities of that object. 
@@ -141,3 +139,10 @@ ang_vel = exp_c.Vector(twist_space[0][0], twist_space[1][0], twist_space[2][0])
 # Determining linear velocity from the space twist
 lin_vel = exp_c.Vector(twist_space[3][0], twist_space[4][0], twist_space[5][0])
 
+'''
+ Printing the space twist, which has the angular and then the linear velocity of the
+   end effector
+'''
+print('First three elements are the x, y, and z components of the angular velocity of the end effector (roll, pitch, yaw)')
+print(twist_space)
+print('Second three elements are the x, y, and z components of the linear velocity of the end effector')

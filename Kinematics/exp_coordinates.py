@@ -94,13 +94,15 @@ def matrix_exponential_rotation(theta, ang_vel):
     # Getting skew-symmetric representation of angular velocity ang_vel
     skew_ang_vel = skew(ang_vel)
 
+    # Identity matrix
     I = np.eye(3)
-
+    # Angle value multiplied by the skew-symetric representation of the angular velocity
     linear_skew_vel = np.sin(theta) * skew_ang_vel
-    
-    quadratic_skew_vel = (1 - np.cos(theta) * np.dot(skew_ang_vel, skew_ang_vel))
-
+    # Angle value multiplied by the square of the skew-symetric representation of the angular velocity
+    quadratic_skew_vel = (1 - np.cos(theta)) * np.dot(skew_ang_vel, skew_ang_vel)
+    # Summing each term up
     exp_rotation = I + linear_skew_vel + quadratic_skew_vel
+
 
     return exp_rotation
 
@@ -134,8 +136,8 @@ def matrix_exponential_transform(theta, ang_vel, lin_vel):
     p = np.dot(G, lin_vel)
     '''
     Overall matrix exponential that describes transformation
-        concatinating the rotation matrix with the position vector
-        concatinating the above with the 4th row -- [0,0,0,1]
+        1st -- concatinating the rotation matrix with the position vector
+        2nd -- concatinating the above with the 4th row -- [0,0,0,1]
     '''
     exp_transform = np.column_stack((exp_rotation, p))
     fourth_row = np.array([
@@ -151,7 +153,7 @@ def matrix_exponential_transform(theta, ang_vel, lin_vel):
 
 
 
-
+'''
 # test junk
 
 ang_vel = Vector(0, 1, 0)
@@ -161,8 +163,7 @@ theta = np.pi/2.0
 
 y = matrix_exponential_transform(theta, ang_vel, lin_vel)
 
-
-
-
+port = matrix_exponential_rotation(theta, ang_vel)
+'''
 
 
