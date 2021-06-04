@@ -9,22 +9,22 @@ Servo arm1Servo;
 Servo arm2Servo;
 
 // Variables -- establishing variables for clockwise and counterclockwise pins for arm1, arm2, and base
-int CW_base_pin = 0;
+int CW_base_pin = 8;
 bool CW_base_state = false;
 
-int CW_arm1_pin = 0;
+int CW_arm1_pin = 9;
 bool CW_arm1_state = false;
 
-int CW_arm2_pin = 0;
+int CW_arm2_pin = 10;
 bool CW_arm2_state = false;
 
-int CCW_base_pin = 0;
+int CCW_base_pin = 11;
 bool CCW_base_state = false;
 
-int CCW_arm1_pin = 0;
+int CCW_arm1_pin = 12;
 bool CCW_arm1_state = false;
 
-int CCW_arm2_pin = 0;
+int CCW_arm2_pin = 13;
 bool CCW_arm2_state = false;
 
 int val_base;
@@ -47,12 +47,25 @@ void setup() {
   // put your setup code here, to run once:
 
   // Initialize 3 servos
-  baseServo.attach(1); // attaches the servo on pin - to the servo object baseServo
+  baseServo.attach(5); // attaches the servo on pin 5 to the servo object baseServo
 
-  arm1Servo.attach(2); // attaches the servo on pin - to the servo object arm1Servo
+  arm1Servo.attach(6); // attaches the servo on pin 6 to the servo object arm1Servo
   
-  arm2Servo.attach(3); // attaches the servo on pin - to the servo object arm2Servo
+  arm2Servo.attach(7); // attaches the servo on pin 7 to the servo object arm2Servo
 
+  // Initializing button pins as inputs
+  pinMode(CW_base_pin, INPUT_PULLUP);
+
+  pinMode(CW_arm1_pin, INPUT_PULLUP);
+
+  pinMode(CW_arm2_pin, INPUT_PULLUP);
+
+  pinMode(CCW_base_pin, INPUT_PULLUP);
+
+  pinMode(CCW_arm1_pin, INPUT_PULLUP);
+
+  pinMode(CCW_arm2_pin, INPUT_PULLUP);
+  
 }
 
 void loop() {
@@ -73,10 +86,10 @@ void loop() {
 
 
   // Check Base servo buttons, and update servo pos. If needed
-  if (CW_base_state) {
+  if (!CW_base_state) {
     ++base_angle;
   } 
-  if (CCW_base_state) {
+  if (!CCW_base_state) {
     --base_angle;
   }
   // Update servo
@@ -85,10 +98,10 @@ void loop() {
 
 
   // Check arm1 servo buttons, and update servo pos. If needed
-  if (CW_arm1_state) {
+  if (!CW_arm1_state) {
     ++arm1_angle;
   } 
-  if (CCW_arm1_state) {
+  if (!CCW_arm1_state) {
     --arm1_angle;
   }
   // Update servo
@@ -96,11 +109,11 @@ void loop() {
   arm1Servo.write(val_arm1);
 
   
-  // Check Base servo buttons, and update servo pos. If needed
-  if (CW_arm2_state) {
+  // Check arm2 servo buttons, and update servo pos. If needed
+  if (!CW_arm2_state) {
     ++arm2_angle;
   } 
-  if (CCW_arm2_state) {
+  if (!CCW_arm2_state) {
     --arm2_angle;
   }
   // Update servo
